@@ -58,6 +58,21 @@
       line-height: 1.6;
     }
 
+<<<<<<< HEAD
+    /* Estilos para a galeria de imagens */
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    .image-item {
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+=======
     /* Estilos para a galeria de imagens */
     .image-gallery {
       display: flex; /* Para alinhar as imagens lado a lado */
@@ -71,18 +86,39 @@
       width: 150px; /* Largura fixa para todas as imagens */
       height: 150px; /* Altura fixa para todas as imagens */
       overflow: hidden; /* Garante que partes extras da imagem sejam cortadas */
+>>>>>>> eeca9b653a85e763340c14d3904d96b2d0f6dcc9
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+<<<<<<< HEAD
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer; /* Adiciona um cursor de "mãozinha" para indicar que é clicável */
+      transition: transform 0.2s ease-in-out; /* Efeito de transição ao passar o mouse */
+=======
       display: flex; /* Para centralizar a imagem dentro do item */
       justify-content: center;
       align-items: center;
+>>>>>>> eeca9b653a85e763340c14d3904d96b2d0f6dcc9
     }
 
+<<<<<<< HEAD
+    .image-item:hover {
+        transform: scale(1.05); /* Pequeno zoom ao passar o mouse */
+=======
     .image-item img {
       width: 100%; /* A imagem preenche a largura do seu contêiner */
       height: 100%; /* A imagem preenche a altura do seu contêiner */
       object-fit: cover; /* Recorta a imagem para cobrir a área sem distorcer */
       display: block; /* Remove o espaço extra abaixo da imagem */
+>>>>>>> eeca9b653a85e763340c14d3904d96b2d0f6dcc9
+    }
+
+    .image-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     footer {
@@ -91,6 +127,59 @@
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
+    }
+
+    /* Estilos para o Modal (overlay da imagem grande) */
+    .modal {
+      display: none; /* Escondido por padrão */
+      position: fixed; /* Posição fixa para cobrir a tela inteira */
+      z-index: 1000; /* Acima de outros elementos */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Fundo preto semi-transparente */
+      justify-content: center; /* Centraliza o conteúdo horizontalmente */
+      align-items: center; /* Centraliza o conteúdo verticalmente */
+      overflow: auto; /* Adiciona barra de rolagem se a imagem for muito grande */
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%; /* Limita a largura da imagem no modal */
+      max-height: 90%; /* Limita a altura da imagem no modal */
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Animação de zoom para o modal */
+    @keyframes zoom {
+      from {transform: scale(0.1)}
+      to {transform: scale(1)}
+    }
+
+    .modal-content {
+      animation-name: zoom;
+      animation-duration: 0.6s;
     }
   </style>
 </head>
@@ -128,13 +217,13 @@
     <section id="galeria" class="section">
       <h2>Galeria de Imagens</h2>
       <div class="image-gallery">
-        <div class="image-item">
+        <div class="image-item" onclick="openModal('bela-foto-de-uma-cerca-que-leva-a-uma-casa-em-uma-area-de-grama-verde_181624-18255.avif')">
           <img src="bela-foto-de-uma-cerca-que-leva-a-uma-casa-em-uma-area-de-grama-verde_181624-18255.avif" alt="Cerca levando a uma casa em área verde, representando o campo.">
         </div>
-        <div class="image-item">
+        <div class="image-item" onclick="openModal('shutterstock_2261596665-1.jpg')">
           <img src="shutterstock_2261596665-1.jpg" alt="Campo de milho com céu azul, simbolizando a natureza e a produção agrícola.">
         </div>
-        <div class="image-item">
+        <div class="image-item" onclick="openModal('drone-campo.jpg')">
           <img src="drone-campo.jpg" alt="Drone sobrevoando um campo, representando tecnologias avançadas no agronegócio.">
         </div>
       </div>
@@ -145,6 +234,36 @@
   <footer>
     <p>&copy; 2025 Projeto Agrinho – Todos os direitos reservados.</p>
   </footer>
+
+  <div id="imageModal" class="modal">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    // Função para abrir o modal
+    function openModal(imageSrc) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("img01");
+
+      modal.style.display = "flex"; // Usa flex para centralizar
+      modalImg.src = imageSrc; // Define a imagem a ser exibida
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+      const modal = document.getElementById("imageModal");
+      modal.style.display = "none";
+    }
+
+    // Fecha o modal ao clicar fora da imagem
+    window.onclick = function(event) {
+      const modal = document.getElementById("imageModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 
 </body>
 </html>
